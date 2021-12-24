@@ -14,6 +14,7 @@ class Example {
     }
 
     loop() {
+        console.log('hit', this.offset)
         var pixels = new Uint32Array(this.config.leds);
 
         // Set a specific pixel
