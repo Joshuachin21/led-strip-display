@@ -9,7 +9,7 @@ class Example {
 
         // Set my Neopixel configuration
         this.config = {leds:150};
-
+        this.config.stripType = 'grb';
         // Configure ws281x
         ws281x.configure(this.config);
     }
@@ -50,7 +50,7 @@ class Example {
             var pixels = new Uint32Array(this.config.leds);
 
             // Set a specific pixel
-            pixels[this.offset] = 0xFF00FF;
+            pixels[this.offset] = 0xFF0000;
 
 
             this.offset = (this.offset + 1) % this.config.leds;
