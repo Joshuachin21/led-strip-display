@@ -8,7 +8,7 @@ class Example {
         this.directionUp = true;
 
         // Set my Neopixel configuration
-        this.config = {leds:100};
+        this.config = {leds:150};
 
         // Configure ws281x
         ws281x.configure(this.config);
