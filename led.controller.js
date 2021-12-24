@@ -6,7 +6,7 @@ class Example {
         // Current pixel position
         this.offset = 0;
         this.directionUp = true;
-        this.stored = 0;
+        this.stored = 150;
 
         // Set my Neopixel configuration
         this.config = {leds:150};
