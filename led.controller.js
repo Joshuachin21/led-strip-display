@@ -29,7 +29,7 @@ const color = 0xD71AE5;
              }
 
             const filled = this.stored;
-            if(this.offset === (this.config.leds-1) - filled){
+            if(this.offset === filled){
                 this.offset = 0
                 this.stored = this.stored-1;
                 if(this.stored === 0){
