@@ -15,28 +15,31 @@ class Example {
     }
 
     loop() {
-        var pixels = new Uint32Array(this.config.leds);
+        setInterval(()=>{
 
-        // Set a specific pixel
-        pixels[this.offset] = 0xFF00FF;
+            var pixels = new Uint32Array(this.config.leds);
 
-        // Move on to next
+            // Set a specific pixel
+            pixels[this.offset] = 0xFF00FF;
 
-        if(this.offset === this.config.leds){
-            this.directionUp = false
-        }
-        if(this.offset === 0 && !this.directionUp){
-            this.directionUp = true;
-        }
-        if(this.directionUp){
-            this.offset = this.offset + 1;
-        }
-        else {
-            this.offset = this.offset - 1;
-        }
+            // Move on to next
 
-        // Render to strip
-        ws281x.render(pixels);
+            if(this.offset === this.config.leds){
+                this.directionUp = false
+            }
+            if(this.offset === 0 && !this.directionUp){
+                this.directionUp = true;
+            }
+            if(this.directionUp){
+                this.offset = this.offset + 1;
+            }
+            else {
+                this.offset = this.offset - 1;
+            }
+
+            // Render to strip
+            ws281x.render(pixels);
+        }, 10)
     }
 
 
@@ -64,7 +67,7 @@ class Example {
         this.loop()
         //setInterval(this.loop.bind(this), 10);
     }
-};
+}
 
 var example = new Example();
 example.run();
