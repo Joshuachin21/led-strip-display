@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Joshuachin21/led-strip-display#readme",
   "dependencies": {
-    "rpi-ws281x-native": "^1.0.3"
+    "rpi-ws281x-native": "^1.0.3",
+    "rpi-ws281x": "^1.0.36"
   }
 }
