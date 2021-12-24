@@ -35,7 +35,7 @@ setInterval(()=>{
 
     }
     this.allOn = !this.allOn;
-}, 5)
+}, 50)
 }
     fill() {
 
