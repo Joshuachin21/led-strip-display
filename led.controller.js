@@ -30,14 +30,15 @@ const color = 0xD71AE5;
             const filled = this.stored;
             if(this.offset === this.config.leds - filled){
                 this.offset = 0
-
+                this.stored = this.stored+1;
+                if(this.stored === this.config.leds){
+                    this.stored = 0
+                }
             }else {
                 this.offset = this.offset + 1;
-                this.stored = this.stored+1;
+
             }
-            if(this.stored === this.config.leds){
-                this.stored = 0
-            }
+
 
 
             // Render to strip
