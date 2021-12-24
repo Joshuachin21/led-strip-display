@@ -7,7 +7,8 @@ class Example {
         this.offset = 0;
         this.directionUp = true;
         this.stored = 150;
-
+this.jackpot = false;
+this.allOn = false;
         // Set my Neopixel configuration
         this.config = {leds:150};
         this.config.stripType = 'grb';
@@ -15,10 +16,33 @@ class Example {
         ws281x.configure(this.config);
     }
 
+    jackpotShow(){
+setInterval(()=>{
+    let pixels
+    if(this.allOn){
+        const color = 0xD71AE5;
+
+        pixels = new Uint32Array(this.config.leds);
+
+        for(let i =0;i<this.config.leds-1;i++){
+            pixels[i] =color
+        }
+
+        ws281x.render(pixels);
+    }else {
+         pixels = new Uint32Array(this.config.leds);
+        ws281x.render(pixels);
+
+    }
+    this.allOn = !this.allOn;
+}, 5)
+}
     fill() {
 
         setInterval(()=>{
-
+if(this.jackpot){
+    this.jackpotShow()
+}
             var pixels = new Uint32Array(this.config.leds);
 const color = 0xD71AE5;
             // Set a specific pixel
@@ -37,7 +61,6 @@ const color = 0xD71AE5;
                 }
             }else {
                 this.offset = this.offset + 1;
-
             }
 
 
