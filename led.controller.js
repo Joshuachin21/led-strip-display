@@ -36,9 +36,9 @@ const color = 0xD71AE5;
             pixels[90] = color;
             pixels[89] = color;
 
-            // for(let i =this.config.leds - 1;i<this.stored;i--){
-            //     pixels[i] =color
-            // }
+             for(let i =80 - 1;i<100;i++){
+                 pixels[i] =color
+             }
 
             const filled = this.stored;
             if(this.offset === this.config.leds - filled){
