@@ -23,9 +23,22 @@ class Example {
 const color = 0xD71AE5;
             // Set a specific pixel
             pixels[this.offset] = color;
-            for(let i =this.config.leds - 1;i<this.stored;i--){
-                pixels[i] =color
-            }
+            pixels[100] = color;
+            pixels[99] = color;
+            pixels[98] = color;
+            pixels[97] = color;
+            pixels[96] = color;
+            pixels[95] = color;
+            pixels[94] = color;
+            pixels[93] = color;
+            pixels[92] = color;
+            pixels[91] = color;
+            pixels[90] = color;
+            pixels[89] = color;
+
+            // for(let i =this.config.leds - 1;i<this.stored;i--){
+            //     pixels[i] =color
+            // }
 
             const filled = this.stored;
             if(this.offset === this.config.leds - filled){
