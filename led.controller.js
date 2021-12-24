@@ -104,7 +104,7 @@ const color = 0xD71AE5;
 
     run() {
         // Loop every 100 ms
-        this.fill()
+        this.jackpotShow()
         //setInterval(this.loop.bind(this), 10);
     }
 }
