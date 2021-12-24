@@ -1,0 +1,22 @@
+{
+  "name": "led-strip-display",
+  "version": "1.0.0",
+  "description": "control an IA-LED strip via raspberry pi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joshuachin21/led-strip-display.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joshuachin21/led-strip-display/issues"
+  },
+  "homepage": "https://github.com/Joshuachin21/led-strip-display#readme",
+  "dependencies": {
+    "rpi-ws281x-native": "^1.0.3"
+  }
+}
