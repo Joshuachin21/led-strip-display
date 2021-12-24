@@ -7,7 +7,7 @@ class Example {
         this.offset = 0;
 
         // Set my Neopixel configuration
-        this.config = {leds:25};
+        this.config = {leds:100};
 
         // Configure ws281x
         ws281x.configure(this.config);
@@ -29,7 +29,7 @@ class Example {
 
     run() {
         // Loop every 100 ms
-        setInterval(this.loop.bind(this), 100);
+        setInterval(this.loop.bind(this), 10);
     }
 };
 
