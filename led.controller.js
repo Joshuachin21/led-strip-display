@@ -39,7 +39,7 @@ class Example {
 
             // Render to strip
             ws281x.render(pixels);
-        }, 10)
+        }, 50)
     }
 
 
