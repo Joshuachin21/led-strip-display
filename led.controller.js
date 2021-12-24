@@ -24,7 +24,7 @@ const color = 0xD71AE5;
             // Set a specific pixel
             pixels[this.offset] = color;
 
-             for(let i =this.config.leds;i>this.stored;i--){
+             for(let i =this.config.leds-1;i>this.stored;i--){
                  pixels[i] =color
              }
 
