@@ -17,7 +17,7 @@ class Example {
         var pixels = new Uint32Array(this.config.leds);
 
         // Set a specific pixel
-        pixels[this.offset] = 0x6c10ad;
+        pixels[this.offset] = 0xFF00FF;
 
         // Move on to next
         this.offset = (this.offset + 1) % this.config.leds;
