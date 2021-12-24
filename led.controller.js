@@ -14,11 +14,10 @@ class Example {
     }
 
     loop() {
-        console.log('hit', this.offset)
         var pixels = new Uint32Array(this.config.leds);
 
         // Set a specific pixel
-        pixels[this.offset] = 0xFF0000;
+        pixels[this.offset] = 0x6c10ad;
 
         // Move on to next
         this.offset = (this.offset + 1) % this.config.leds;
@@ -26,6 +25,7 @@ class Example {
         // Render to strip
         ws281x.render(pixels);
     }
+
 
     run() {
         // Loop every 100 ms
