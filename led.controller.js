@@ -5,6 +5,7 @@ class Example {
     constructor() {
         // Current pixel position
         this.offset = 0;
+        this.directionUp = true;
 
         // Set my Neopixel configuration
         this.config = {leds:100};
@@ -20,16 +21,48 @@ class Example {
         pixels[this.offset] = 0xFF00FF;
 
         // Move on to next
-        this.offset = (this.offset + 1) % this.config.leds;
+
+        if(this.offset === this.config.leds){
+            this.directionUp = false
+        }
+        if(this.offset === 0 && !this.directionUp){
+            this.directionUp = true;
+        }
+        if(this.directionUp){
+            this.offset = this.offset + 1;
+        }
+        else {
+            this.offset = this.offset - 1;
+        }
 
         // Render to strip
         ws281x.render(pixels);
     }
 
 
+    bounce() {
+
+        setInterval(()=>{
+
+            var pixels = new Uint32Array(this.config.leds);
+
+            // Set a specific pixel
+            pixels[this.offset] = 0xFF00FF;
+
+
+            this.offset = (this.offset + 1) % this.config.leds;
+
+            // Render to strip
+            ws281x.render(pixels);
+        }, 10)
+    }
+
+
+
     run() {
         // Loop every 100 ms
-        setInterval(this.loop.bind(this), 10);
+        this.loop()
+        //setInterval(this.loop.bind(this), 10);
     }
 };
 
