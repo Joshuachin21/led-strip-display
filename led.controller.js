@@ -1,8 +1,12 @@
 const ws281x = require('rpi-ws281x');
 const Gpio = require('onoff').Gpio;
-//const buttonLeft = new Gpio(4, 'in', 'rising', {debounceTimeout: 10});
-const buttonRight = new Gpio(27, 'in', 'rising', {debounceTimeout: 10});
-//const buttonCenter = new Gpio(22, 'in', 'rising', {debounceTimeout: 10});
+let buttonLeft;
+let buttonRight;
+let buttonCenter;
+
+let jackpotInterval;
+let fillInterval;
+let bounceInterval;
 
 class Example {
 
@@ -22,22 +26,40 @@ class Example {
     }
 
     init() {
+        console.log('init')
         this.configureButtons()
         process.on('SIGINT', _ => {
-            //buttonLeft.unexport();
-            buttonRight.unexport();
-            //buttonCenter.unexport();
+            buttonLeft?.unexport();
+            buttonRight?.unexport();
+            buttonCenter?.unexport();
         });
     }
 
     configureButtons() {
-        //this.configureLeftButton()
+        console.log('configure buttons')
+        this.configureLeftButton()
         this.configureRightButton()
-        //this.configureCenterButton()
+        this.configureCenterButton()
     }
-/*
+
+    clearAll() {
+        console.log('clearAll')
+        if (jackpotInterval) {
+            clearInterval(jackpotInterval)
+        }
+        if (fillInterval) {
+            clearInterval(fillInterval)
+        }
+        if (bounceInterval) {
+            clearInterval(bounceInterval)
+        }
+    }
+
     configureLeftButton() {
+        console.log('configure left button')
+        buttonLeft = new Gpio(4, 'in', 'rising', {debounceTimeout: 10});
         buttonLeft.watch((err, value) => {
+            this.clearAll()
             console.log('value configureLeftButton', value)
             if (err) {
                 console.log('configureLeftButton ERROR', err)
@@ -45,10 +67,13 @@ class Example {
             }
             this.jackpotShow()
         });
-    }*/
+    }
 
     configureRightButton() {
+        console.log('configuring right button')
+        buttonRight = new Gpio(27, 'in', 'rising', {debounceTimeout: 10});
         buttonRight.watch((err, value) => {
+            this.clearAll()
             console.log('value configureRightButton', value)
             if (err) {
                 console.log('configureRightButton ERROR', err)
@@ -57,9 +82,12 @@ class Example {
             this.fill()
         });
     }
-/*
+
     configureCenterButton() {
+        console.log('configure left button')
+        buttonCenter = new Gpio(22, 'in', 'rising', {debounceTimeout: 10});
         buttonCenter.watch((err, value) => {
+            this.clearAll()
             console.log('value configureCenterButton', value)
             if (err) {
                 console.log('configureCenterButton ERROR', err)
@@ -67,7 +95,7 @@ class Example {
             }
             this.bounce()
         });
-    }*/
+    }
 
     jackpotShow() {
         setInterval(() => {
@@ -92,8 +120,7 @@ class Example {
     }
 
     fill() {
-
-        setInterval(() => {
+        fillInterval = setInterval(() => {
             if (this.jackpot) {
                 this.jackpotShow()
             }
