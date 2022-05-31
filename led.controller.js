@@ -13,7 +13,6 @@ let runUpInterval;
 let runDownInterval;
 
 class Example {
-
     constructor() {
         // Current pixel position
         this.offset = 0;
@@ -26,7 +25,6 @@ class Example {
         this.config.stripType = 'grb';
         // Configure ws281x
         ws281x.configure(this.config);
-
     }
 
     init() {
@@ -53,17 +51,19 @@ class Example {
 
     configureButtons() {
         console.log('configure buttons')
-       this.configureLeftButton()
+        this.configureLeftButton()
         this.configureRightButton()
         this.configureCenterButton()
+        this.configureRunUpButton()
+        this.configureRunDownButton()
     }
 
     clearAll() {
         console.log('clearAll')
-this.jackpot = false;
-this.stored = 150;
-this.offset = 0;
-this.allOn = false;
+        this.jackpot = false;
+        this.stored = 150;
+        this.offset = 0;
+        this.allOn = false;
         if (jackpotInterval) {
             clearInterval(jackpotInterval)
         }
@@ -153,22 +153,18 @@ this.allOn = false;
     }
 
     jackpotShow() {
-       jackpotInterval = setInterval(() => {
+        jackpotInterval = setInterval(() => {
             let pixels
             if (this.allOn) {
                 const color = 0xD71AE5;
-
                 pixels = new Uint32Array(this.config.leds);
-
                 for (let i = 0; i < this.config.leds - 1; i++) {
                     pixels[i] = color
                 }
-
                 ws281x.render(pixels);
             } else {
                 pixels = new Uint32Array(this.config.leds);
                 ws281x.render(pixels);
-
             }
             this.allOn = !this.allOn;
         }, 50)
@@ -187,7 +183,6 @@ this.allOn = false;
             for (let i = this.config.leds - 1; i > this.stored; i--) {
                 pixels[i] = color
             }
-
             const filled = this.stored;
             if (this.offset === filled) {
                 this.offset = 0
@@ -198,8 +193,6 @@ this.allOn = false;
             } else {
                 this.offset = this.offset + 1;
             }
-
-
             // Render to strip
             ws281x.render(pixels);
         }, 1)
@@ -207,16 +200,11 @@ this.allOn = false;
 
 
     bounce() {
-
         bounceInterval = setInterval(() => {
-
             let pixels = new Uint32Array(this.config.leds);
-
             // Set a specific pixel
             pixels[this.offset] = 0xD71AE5;
-
             // Move on to next
-
             if (this.offset === this.config.leds) {
                 this.directionUp = false
             }
@@ -228,55 +216,38 @@ this.allOn = false;
             } else {
                 this.offset = this.offset - 1;
             }
-
             // Render to strip
             ws281x.render(pixels);
         }, 1)
     }
 
     runUp() {
-this.offset = 0;
-
+        this.offset = 0;
         runUpInterval = setInterval(() => {
-
             let pixels = new Uint32Array(this.config.leds);
-
             // Set a specific pixel
             pixels[this.offset] = 0xD71AE5;
-
             // Move on to next
-
-
-
             if (this.offset === this.config.leds) {
-this.clearAll();
+                this.clearAll();
             }
-                this.offset = this.offset + 1;
-
+            this.offset = this.offset + 1;
             // Render to strip
             ws281x.render(pixels);
         }, 1)
     }
 
     runDown() {
-this.offset = this.config.leds;
-
+        this.offset = this.config.leds;
         runUpInterval = setInterval(() => {
-
             let pixels = new Uint32Array(this.config.leds);
-
             // Set a specific pixel
             pixels[this.offset] = 0xD71AE5;
-
             // Move on to next
-
-
-
             if (this.offset === 0) {
-this.clearAll();
+                this.clearAll();
             }
-                this.offset = this.offset - 1;
-
+            this.offset = this.offset - 1;
             // Render to strip
             ws281x.render(pixels);
         }, 1)
