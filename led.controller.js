@@ -1,8 +1,8 @@
 const ws281x = require('rpi-ws281x');
 const Gpio = require('onoff').Gpio;
-const buttonLeft = new Gpio(4, 'in', 'rising', {debounceTimeout: 10});
+//const buttonLeft = new Gpio(4, 'in', 'rising', {debounceTimeout: 10});
 const buttonRight = new Gpio(27, 'in', 'rising', {debounceTimeout: 10});
-const buttonCenter = new Gpio(22, 'in', 'rising', {debounceTimeout: 10});
+//const buttonCenter = new Gpio(22, 'in', 'rising', {debounceTimeout: 10});
 
 class Example {
 
@@ -24,18 +24,18 @@ class Example {
     init() {
         this.configureButtons()
         process.on('SIGINT', _ => {
-            buttonLeft.unexport();
+            //buttonLeft.unexport();
             buttonRight.unexport();
-            buttonCenter.unexport();
+            //buttonCenter.unexport();
         });
     }
 
     configureButtons() {
-        this.configureLeftButton()
+        //this.configureLeftButton()
         this.configureRightButton()
-        this.configureCenterButton()
+        //this.configureCenterButton()
     }
-
+/*
     configureLeftButton() {
         buttonLeft.watch((err, value) => {
             console.log('value configureLeftButton', value)
@@ -45,7 +45,7 @@ class Example {
             }
             this.jackpotShow()
         });
-    }
+    }*/
 
     configureRightButton() {
         buttonRight.watch((err, value) => {
@@ -57,7 +57,7 @@ class Example {
             this.fill()
         });
     }
-
+/*
     configureCenterButton() {
         buttonCenter.watch((err, value) => {
             console.log('value configureCenterButton', value)
@@ -67,7 +67,7 @@ class Example {
             }
             this.bounce()
         });
-    }
+    }*/
 
     jackpotShow() {
         setInterval(() => {
