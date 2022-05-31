@@ -3,10 +3,14 @@ const Gpio = require('onoff').Gpio;
 let buttonLeft;
 let buttonRight;
 let buttonCenter;
+let buttonRunUp;
+let buttonRunDown;
 
 let jackpotInterval;
 let fillInterval;
 let bounceInterval;
+let runUpInterval;
+let runDownInterval;
 
 class Example {
 
@@ -38,18 +42,28 @@ class Example {
             if (buttonCenter) {
                 buttonCenter.unexport();
             }
+            if (runUpInterval) {
+                runUpInterval.unexport();
+            }
+            if (runDownInterval) {
+                runDownInterval.unexport();
+            }
         });
     }
 
     configureButtons() {
         console.log('configure buttons')
-        this.configureLeftButton()
+       this.configureLeftButton()
         this.configureRightButton()
         this.configureCenterButton()
     }
 
     clearAll() {
         console.log('clearAll')
+this.jackpot = false;
+this.stored = 150;
+this.offset = 0;
+this.allOn = false;
         if (jackpotInterval) {
             clearInterval(jackpotInterval)
         }
@@ -59,11 +73,17 @@ class Example {
         if (bounceInterval) {
             clearInterval(bounceInterval)
         }
+        if (runUpInterval) {
+            clearInterval(runUpInterval)
+        }
+        if (runDownInterval) {
+            clearInterval(runDownInterval)
+        }
     }
 
     configureLeftButton() {
         console.log('configure left button')
-        buttonLeft = new Gpio(4, 'in', 'rising', {debounceTimeout: 10});
+        buttonLeft = new Gpio(13, 'in', 'rising', {debounceTimeout: 10});
         buttonLeft.watch((err, value) => {
             this.clearAll()
             console.log('value configureLeftButton', value)
@@ -103,8 +123,37 @@ class Example {
         });
     }
 
+
+    configureRunUpButton() {
+        console.log('configure runUp button')
+        buttonRunUp = new Gpio(19, 'in', 'rising', {debounceTimeout: 10});
+        buttonRunUp.watch((err, value) => {
+            this.clearAll()
+            console.log('value configureRunUpButton', value)
+            if (err) {
+                console.log('configureRunUpButton ERROR', err)
+                throw err;
+            }
+            this.runUp()
+        });
+    }
+
+    configureRunDownButton() {
+        console.log('configure runUp button')
+        buttonRunDown = new Gpio(26, 'in', 'rising', {debounceTimeout: 10});
+        buttonRunDown.watch((err, value) => {
+            this.clearAll()
+            console.log('value configureRunDownButton', value)
+            if (err) {
+                console.log('configureRunDownButton ERROR', err)
+                throw err;
+            }
+            this.runDown()
+        });
+    }
+
     jackpotShow() {
-        setInterval(() => {
+       jackpotInterval = setInterval(() => {
             let pixels
             if (this.allOn) {
                 const color = 0xD71AE5;
@@ -130,7 +179,7 @@ class Example {
             if (this.jackpot) {
                 this.jackpotShow()
             }
-            var pixels = new Uint32Array(this.config.leds);
+            let pixels = new Uint32Array(this.config.leds);
             const color = 0xD71AE5;
             // Set a specific pixel
             pixels[this.offset] = color;
@@ -159,9 +208,9 @@ class Example {
 
     bounce() {
 
-        setInterval(() => {
+        bounceInterval = setInterval(() => {
 
-            var pixels = new Uint32Array(this.config.leds);
+            let pixels = new Uint32Array(this.config.leds);
 
             // Set a specific pixel
             pixels[this.offset] = 0xD71AE5;
@@ -185,10 +234,52 @@ class Example {
         }, 1)
     }
 
-    run() {
-        // Loop every 100 ms
-        this.jackpotShow()
-        //setInterval(this.loop.bind(this), 10);
+    runUp() {
+this.offset = 0;
+
+        runUpInterval = setInterval(() => {
+
+            let pixels = new Uint32Array(this.config.leds);
+
+            // Set a specific pixel
+            pixels[this.offset] = 0xD71AE5;
+
+            // Move on to next
+
+
+
+            if (this.offset === this.config.leds) {
+this.clearAll();
+            }
+                this.offset = this.offset + 1;
+
+            // Render to strip
+            ws281x.render(pixels);
+        }, 1)
+    }
+
+    runDown() {
+this.offset = this.config.leds;
+
+        runUpInterval = setInterval(() => {
+
+            let pixels = new Uint32Array(this.config.leds);
+
+            // Set a specific pixel
+            pixels[this.offset] = 0xD71AE5;
+
+            // Move on to next
+
+
+
+            if (this.offset === 0) {
+this.clearAll();
+            }
+                this.offset = this.offset - 1;
+
+            // Render to strip
+            ws281x.render(pixels);
+        }, 1)
     }
 }
 
