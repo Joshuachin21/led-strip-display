@@ -26,6 +26,7 @@ class Example {
         process.on('SIGINT', _ => {
             buttonLeft.unexport();
             buttonRight.unexport();
+            buttonCenter.unexport();
         });
     }
 
@@ -159,4 +160,4 @@ class Example {
 }
 
 var example = new Example();
-example.configureButtons();
+example.init();
