@@ -29,9 +29,15 @@ class Example {
         console.log('init')
         this.configureButtons()
         process.on('SIGINT', _ => {
-            buttonLeft?.unexport();
-            buttonRight?.unexport();
-            buttonCenter?.unexport();
+            if (buttonLeft) {
+                buttonLeft.unexport();
+            }
+            if (buttonRight) {
+                buttonRight.unexport();
+            }
+            if (buttonCenter) {
+                buttonCenter.unexport();
+            }
         });
     }
 
