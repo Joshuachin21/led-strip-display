@@ -11,6 +11,8 @@ let fillInterval;
 let bounceInterval;
 let runUpInterval;
 let runDownInterval;
+const PRIMARY_COLOR_CODE = 0xD71AE5;
+const SECONDARY_COLOR_CODE = 0xD71AE5;
 
 class Example {
     constructor() {
@@ -156,7 +158,7 @@ class Example {
         jackpotInterval = setInterval(() => {
             let pixels
             if (this.allOn) {
-                const color = 0xD71AE5;
+                const color = PRIMARY_COLOR_CODE;
                 pixels = new Uint32Array(this.config.leds);
                 for (let i = 0; i < this.config.leds - 1; i++) {
                     pixels[i] = color
@@ -176,7 +178,7 @@ class Example {
                 this.jackpotShow()
             }
             let pixels = new Uint32Array(this.config.leds);
-            const color = 0xD71AE5;
+            const color = PRIMARY_COLOR_CODE;
             // Set a specific pixel
             pixels[this.offset] = color;
 
@@ -203,7 +205,7 @@ class Example {
         bounceInterval = setInterval(() => {
             let pixels = new Uint32Array(this.config.leds);
             // Set a specific pixel
-            pixels[this.offset] = 0xD71AE5;
+            pixels[this.offset] = PRIMARY_COLOR_CODE;
             // Move on to next
             if (this.offset === this.config.leds) {
                 this.directionUp = false
@@ -226,7 +228,7 @@ class Example {
         runUpInterval = setInterval(() => {
             let pixels = new Uint32Array(this.config.leds);
             // Set a specific pixel
-            pixels[this.offset] = 0xD71AE5;
+            pixels[this.offset] = PRIMARY_COLOR_CODE;
             // Move on to next
             if (this.offset === this.config.leds) {
                 this.clearAll();
@@ -242,7 +244,7 @@ class Example {
         runUpInterval = setInterval(() => {
             let pixels = new Uint32Array(this.config.leds);
             // Set a specific pixel
-            pixels[this.offset] = 0xD71AE5;
+            pixels[this.offset] = PRIMARY_COLOR_CODE;
             // Move on to next
             if (this.offset === 0) {
                 this.clearAll();
