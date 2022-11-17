@@ -11,7 +11,7 @@ let fillInterval;
 let bounceInterval;
 let runUpInterval;
 let runDownInterval;
-const PRIMARY_COLOR_CODE = 0xD71AE5;
+const PRIMARY_COLOR_CODE = 0x1ff042;
 const SECONDARY_COLOR_CODE = 0xD71AE5;
 const LED_TOTAL_LENGTH = 300;
 
@@ -61,7 +61,7 @@ class Example {
         this.configureCenterButton()
         this.configureRunUpButton()
         this.configureRunDownButton()
-      this.jackpotShow()
+      this.bounce()
     }
 
     clearAll() {
