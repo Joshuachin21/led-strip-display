@@ -13,17 +13,18 @@ let runUpInterval;
 let runDownInterval;
 const PRIMARY_COLOR_CODE = 0xD71AE5;
 const SECONDARY_COLOR_CODE = 0xD71AE5;
+const LED_TOTAL_LENGTH = 300;s
 
 class Example {
     constructor() {
         // Current pixel position
         this.offset = 0;
         this.directionUp = true;
-        this.stored = 150;
+        this.stored = LED_TOTAL_LENGTH;
         this.jackpot = false;
         this.allOn = false;
         // Set my Neopixel configuration
-        this.config = {leds: 150};
+        this.config = {leds: LED_TOTAL_LENGTH};
         this.config.stripType = 'grb';
         // Configure ws281x
         ws281x.configure(this.config);
@@ -63,7 +64,7 @@ class Example {
     clearAll() {
         console.log('clearAll')
         this.jackpot = false;
-        this.stored = 150;
+        this.stored = LED_TOTAL_LENGTH;
         this.offset = 0;
         this.allOn = false;
         if (jackpotInterval) {
