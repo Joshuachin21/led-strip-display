@@ -59,6 +59,7 @@ class Example {
         this.configureCenterButton()
         this.configureRunUpButton()
         this.configureRunDownButton()
+      this.jackpotShow()
     }
 
     clearAll() {
@@ -170,7 +171,7 @@ class Example {
                 ws281x.render(pixels);
             }
             this.allOn = !this.allOn;
-        }, 50)
+        }, 100)
     }
 
     fill() {
