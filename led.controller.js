@@ -26,7 +26,9 @@ class Example {
         // Set my Neopixel configuration
         this.config = {leds: LED_TOTAL_LENGTH};
         this.config.stripType = 'grb';
-        // Configure ws281x
+      this.config.brightness = 125;
+
+      // Configure ws281x
         ws281x.configure(this.config);
     }
 
@@ -223,6 +225,47 @@ class Example {
             // Render to strip
             ws281x.render(pixels);
         }, 1)
+    }
+
+    triple() {/*
+
+      this.offset = 1;
+      runUpInterval = setInterval(() => {
+        let pixels = new Uint32Array(this.config.leds);
+        // Set a specific pixel
+
+
+        for (let i = 0; i<LED_TOTAL_LENGTH; i++) {
+
+
+          switch (this.offset) {
+            case 1:
+              if(i+1%3===1){
+                pixels[i] = PRIMARY_COLOR_CODE
+              }
+              break;
+
+
+            case 2:
+              break;
+
+
+            case 3:
+              break;
+
+
+
+          }
+        }
+
+        this.offset = this.offset + 1;
+
+        if(this.offset > 3){
+          this.offset = 1;
+        }
+        // Render to strip
+        ws281x.render(pixels);
+      }, 200)*/
     }
 
     runUp() {
