@@ -13,7 +13,7 @@ let runUpInterval;
 let runDownInterval;
 const PRIMARY_COLOR_CODE = 0xD71AE5;
 const SECONDARY_COLOR_CODE = 0xD71AE5;
-const LED_TOTAL_LENGTH = 300;s
+const LED_TOTAL_LENGTH = 300;
 
 class Example {
     constructor() {
