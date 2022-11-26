@@ -160,8 +160,8 @@ class Example {
   }
 
   jackpotShow() {
+    let colorAlt = false;
     jackpotInterval = setInterval(() => {
-      let colorAlt = false;
       let pixels;
       if (this.allOn) {
         let color = PRIMARY_COLOR_CODE;
