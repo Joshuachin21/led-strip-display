@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="public/app.css" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl" class="main-container row" ng-init="init()">
+    <!--===========================================================TITLE======================================================TITLE-->
+    <div class="row title-container" ng-if="gameSettings.state == 'menu' || gameSettings.state == 'finished'">
+        <div class="col-xs-12">
+            <div class="col-xs-12 title">
+                BUTTON SMASH
+            </div>
+            <div ng-if="gameSettings.state == 'finished'" class="col-xs-12">
+                <div class="text-center results">{{gameSettings.winner.name}} is the WINNER!</div>
+            </div>
+            <div ng-if="gameSettings.state == 'finished'" class="col-xs-12 replay-btn-container">
+                <button type="button" ng-click="startGame()" class="btn btn-success replay-btn">
+                    <span>REPLAY!</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mid-container">
+        <div class="col-xs-12">
+
+            <!--===========================================================MENU===============================================MENU-->
+            <div ng-if="gameSettings.state == 'menu' && gameSettings.countDown !== 'Go!'"
+                 class="btn-group btn-group-justified col-xs-12" role="group" aria-label="...">
+                <div class="col-xs-3">&nbsp;</div>
+                <div class="col-xs-6">
+                    <div class="btn-group col-xs-12" role="group">
+
+                        <button type="button" ng-click="startGame()" class="btn btn-success start-btn col-xs-12"
+                                id="start">
+                            <span>START!</span>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-xs-3">&nbsp;</div>
+            </div>
+
+
+            <!--=========================================================COUNTDOWN===========================================COUNTDOWN-->
+            <div ng-if="gameSettings.state == 'starting' || gameSettings.state == 'play'" class="countdown-container">
+                <div ng-if="gameSettings.state == 'starting' || gameSettings.state == 'play'">
+                    <div class="countdown">{{gameSettings.countDown}}</div>
+                </div>
+                <div ng-if="gameSettings.state == 'starting' || gameSettings.state == 'play'">
+                    <div class="countdown2">{{gameSettings.countDown}}</div>
+                </div>
+                <!--    <div ng-if="gameSettings.state == 'finished'" class="col-xs-12">
+                        <div class="col-xs-6 text-center">{{gameSettings.winner.name}} is the WINNER!</div>
+                    </div>-->
+
+
+            </div>
+
+            <!--=========================================================PLAY=================================================PLAY-->
+            <div ng-if="(gameSettings.state == 'play' || gameSettings.state == 'finished')" class="col-xs-12">
+                <div class="score-container col-xs-5 text-center">
+                    <div class="score score1">&nbsp;</div>
+                </div>
+                <div class="score-container col-xs-1 text-center">
+                    <div class="score score1">{{gameSettings.p1score}}</div>
+                </div>
+
+                <div class="score-container col-xs-1 text-center">
+                    <div class="score score2">{{gameSettings.p2score}}</div>
+                </div>
+                <div class="score-container col-xs-5 text-center">
+                    <div class="score score2">&nbsp;</div>
+                </div>
+
+            </div>
+            <div ng-if="gameSettings.state == 'play' && gameSettings.countDown !== 'Go!' " class="col-xs-12">
+                <button class="col-xs-6 text-center" ng-click="p1button()">HIT!</button>
+                <button class="col-xs-6 text-center" ng-click="p2button()">HIT!</button>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="progress"
+         ng-if="(gameSettings.state == 'play' || gameSettings.state == 'finished') && gameSettings.countDown !== 'Go!'">
+        <div class="progress-bar progress-bar-success" style="width: {{gameSettings.team1Progress}}%">
+            <span class="sr-only">35% Complete (success)</span>
+        </div>
+        <div class="progress-bar progress-bar-danger" style="width: {{gameSettings.team2Progress}}%">
+            <span class="sr-only">35% Complete (success)</span>
+        </div>
+
+    </div>
+    <!--
+        <pre>{{gameSettings | json}}</pre>-->
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<!-- include socket.io client side script -->
+
+
+<script src="public/app.js"></script>
+</body>
+</html>
