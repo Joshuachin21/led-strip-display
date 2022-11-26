@@ -7,6 +7,7 @@ let buttonRunUp;
 let buttonRunDown;
 
 let jackpotInterval;
+let pulse1Interval;
 let fillInterval;
 let bounceInterval;
 let runUpInterval;
@@ -63,6 +64,7 @@ class Example {
     this.configureRunDownButton();
     //this.bounce()
     this.jackpotShow();
+    this.pulse1();
   }
 
   clearAll() {
@@ -73,6 +75,9 @@ class Example {
     this.allOn = false;
     if (jackpotInterval) {
       clearInterval(jackpotInterval);
+    }
+    if (pulse1Interval) {
+      clearInterval(pulse1Interval);
     }
     if (fillInterval) {
       clearInterval(fillInterval);
@@ -179,6 +184,49 @@ class Example {
         ws281x.render(pixels);
       }
       this.allOn = !this.allOn;
+    }, 100);
+  }
+
+
+  pulse1() {
+
+    /*
+    *     ws281x.configure(this.config);
+
+*/
+    let pulseLevel = 0;
+    const brightMax = 125;
+    let asc = true;
+    let colorAlt = false;
+    pulse1Interval = setInterval(() => {
+      let pixels;
+      let color = PRIMARY_COLOR_CODE;
+      if (colorAlt) {
+        color = SECONDARY_COLOR_CODE;
+      }
+      pixels = new Uint32Array(this.config.leds);
+      for (let i = 0; i < this.config.leds - 1; i++) {
+        pixels[i] = color;
+      }
+      this.config.brightness = pulseLevel;
+      ws281x.configure(this.config);
+      colorAlt = !colorAlt;
+      ws281x.render(pixels);
+
+
+      if (asc) {
+        pulseLevel = pulseLevel + 1;
+        if (pulseLevel === brightMax) {
+          asc = false;
+        }
+      }
+      else {
+        pulseLevel = pulseLevel - 1;
+        if (pulseLevel === 0) {
+          asc = true;
+        }
+      }
+
     }, 100);
   }
 
