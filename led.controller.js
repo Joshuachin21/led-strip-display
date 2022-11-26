@@ -1,4 +1,4 @@
-const ws281x = require('rpi-ws281x');
+let ws281x = require('rpi-ws281x');
 const Gpio = require('onoff').Gpio;
 let buttonLeft;
 let buttonRight;
@@ -199,6 +199,7 @@ class Example {
     let asc = true;
     let colorAlt = false;
     pulse1Interval = setInterval(() => {
+      ws281x = require('rpi-ws281x');
       let pixels;
       let color = PRIMARY_COLOR_CODE;
       if (colorAlt) {
