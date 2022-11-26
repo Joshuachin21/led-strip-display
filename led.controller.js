@@ -12,8 +12,8 @@ let bounceInterval;
 let runUpInterval;
 let runDownInterval;
 const PRIMARY_COLOR_CODE = 0x1ff042;
-const SECONDARY_COLOR_CODE = 0xD71AE5;
-const LED_TOTAL_LENGTH = 500;
+const SECONDARY_COLOR_CODE = 0xF0351F;
+const LED_TOTAL_LENGTH = 600;
 
 class Example {
     constructor() {
@@ -161,13 +161,18 @@ class Example {
 
     jackpotShow() {
         jackpotInterval = setInterval(() => {
+            let colorAlt = false;
             let pixels
             if (this.allOn) {
-                const color = PRIMARY_COLOR_CODE;
+                let color = PRIMARY_COLOR_CODE;
+                if(colorAlt){
+                    color = SECONDARY_COLOR_CODE;
+                }
                 pixels = new Uint32Array(this.config.leds);
                 for (let i = 0; i < this.config.leds - 1; i++) {
                     pixels[i] = color
                 }
+                colorAlt = !colorAlt
                 ws281x.render(pixels);
             } else {
                 pixels = new Uint32Array(this.config.leds);
