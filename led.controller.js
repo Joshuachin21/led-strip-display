@@ -62,9 +62,9 @@ class Example {
     this.configureCenterButton();
     this.configureRunUpButton();
     this.configureRunDownButton();
-    this.bounce()
+    //this.bounce()
     //this.jackpotShow();
-    //this.pulse1();
+    this.pulse1();
   }
 
   clearAll() {
@@ -194,26 +194,37 @@ class Example {
     *     ws281x.configure(this.config);
 
 */
+
+
+
+    /*
+    *
+    * ws281x.setBrightness(value)
+    *
+    * */
     let pulseLevel = 0;
     const brightMax = 125;
     let asc = true;
     let colorAlt = false;
+
+    let pixels;
+    let color = PRIMARY_COLOR_CODE;
+    if (colorAlt) {
+      color = SECONDARY_COLOR_CODE;
+    }
+    pixels = new Uint32Array(this.config.leds);
+    for (let i = 0; i < this.config.leds - 1; i++) {
+      pixels[i] = color;
+    }
+    ws281x.render(pixels);
+
     pulse1Interval = setInterval(() => {
-      ws281x = null;
+      //ws281x = null;
       //ws281x = require('rpi-ws281x');
-      let pixels;
-      let color = PRIMARY_COLOR_CODE;
-      if (colorAlt) {
-        color = SECONDARY_COLOR_CODE;
-      }
-      pixels = new Uint32Array(this.config.leds);
-      for (let i = 0; i < this.config.leds - 1; i++) {
-        pixels[i] = color;
-      }
-      this.config.brightness = pulseLevel;
+//      this.config.brightness = pulseLevel;
       //ws281x.configure(this.config);
-      colorAlt = !colorAlt;
-      ws281x.render(pixels);
+      ws281x.setBrightness(pulseLevel)
+  //    colorAlt = !colorAlt;
 
 
       if (asc) {
