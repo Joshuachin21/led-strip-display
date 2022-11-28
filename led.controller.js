@@ -14,7 +14,8 @@ let runUpInterval;
 let runDownInterval;
 //const PRIMARY_COLOR_CODE = 0x1ff042;
 const PRIMARY_COLOR_CODE = 0xffffff;
-const SECONDARY_COLOR_CODE = 0xF0351F;
+const SECONDARY_COLOR_CODE = 0xffffff;
+//const SECONDARY_COLOR_CODE = 0xF0351F;
 const LED_TOTAL_LENGTH = 600;
 
 class Example {
