@@ -64,7 +64,7 @@ class Example {
     this.configureRunDownButton();
     //this.bounce()
     this.jackpotShow();
-    this.pulse1();
+    //this.pulse1();
   }
 
   clearAll() {
@@ -199,7 +199,8 @@ class Example {
     let asc = true;
     let colorAlt = false;
     pulse1Interval = setInterval(() => {
-      ws281x = require('rpi-ws281x');
+      ws281x = null;
+      //ws281x = require('rpi-ws281x');
       let pixels;
       let color = PRIMARY_COLOR_CODE;
       if (colorAlt) {
@@ -210,7 +211,7 @@ class Example {
         pixels[i] = color;
       }
       this.config.brightness = pulseLevel;
-      ws281x.configure(this.config);
+      //ws281x.configure(this.config);
       colorAlt = !colorAlt;
       ws281x.render(pixels);
 
