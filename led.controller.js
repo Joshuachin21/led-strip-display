@@ -62,8 +62,8 @@ class Example {
     this.configureCenterButton();
     this.configureRunUpButton();
     this.configureRunDownButton();
-    //this.bounce()
-    this.jackpotShow();
+    this.bounce()
+    //this.jackpotShow();
     //this.pulse1();
   }
 
